@@ -1,0 +1,41 @@
+#!/usr/bin/env sh
+
+echo 'Привет. Давайка установим WordPress!'
+echo 'Убедись, что сейчас в консоле открыта та папка, куда ты планируешь установить WP.'
+echo ''
+wp core download --locale=ru_RU
+echo ''
+echo 'Отлично, WP скачали!'
+echo 'Теперь создадим конфиг файл с данными базы данных...'
+echo ''
+echo 'Введи имя базы данных:'
+read dbname
+echo 'Имя пользователя БД:'
+read dbuser
+echo 'Пароль БД:'
+read dbpass
+wp config create --dbname=$dbname --dbuser=$dbuser --dbpass=$dbpass
+echo ''
+echo 'Конфиг создан! Создадим БД: ' $dbname
+echo ''
+wp db create
+echo ''
+echo 'Готово'
+echo 'Пришло время установить сам WP...'
+echo 'Введи URL сайта:'
+read url
+echo 'Имя пользователя администратора:'
+read admin_user
+echo 'Пароль:'
+read admin_password
+echo 'Email:'
+read admin_email
+echo 'Установка пошла...'
+echo ''
+wp core install --url=$url --title='Сайт на WP' --admin_user=$admin_user --admin_password=$admin_password --admin_email=$admin_email
+echo ''
+echo 'Дан. Го тестить!'
+echo 'Фронт: http://'$url
+echo 'Админка: http://'$url'/wp-admin/'
+
+
